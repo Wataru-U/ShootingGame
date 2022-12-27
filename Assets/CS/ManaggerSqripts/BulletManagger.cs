@@ -16,6 +16,7 @@ public class BulletManagger : MonoBehaviour
     BulletList _BulletListSqript;
     private int interval;
     private int changeInterval;
+    private bool isSetedBullets;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,17 +24,30 @@ public class BulletManagger : MonoBehaviour
         num = 3;
         bulletNum = 0;
         Bullets = new GameObject[num];
-        Bullets[0] = massugu;
-        Bullets[1] = homing;
-        Bullets[2] = mawaru;
-        UseBullet = Bullets[0];
+        isSetedBullets = false;
+    }
 
+    void Start()
+    {
+        SetBullets();
     }
 
     // Update is called once per frame
     void Update()
     {
+        SetBullets();
         ChangeBullet();
+    }
+
+    private void SetBullets(){
+        if(!isSetedBullets){
+            Bullets = new GameObject[num];
+            Bullets[0] = massugu;
+            Bullets[1] = homing;
+            Bullets[2] = mawaru;
+            UseBullet = Bullets[0];
+            isSetedBullets = true;
+        }
     }
 
     public void ChangeBullet()

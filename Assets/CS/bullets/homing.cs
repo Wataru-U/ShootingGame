@@ -8,29 +8,51 @@ public class homing : BasicBullet
     PlayerManagger _playerMannagersqript;
     public float s;
     public GameObject _target;
-    Enemy _sqript;
+    Enemy enemySqript;
 
     // Start is called before the first frame update
     void Awake()
     {
         _playerMannager = GameObject.Find("PlayerManagger");
         _playerMannagersqript = _playerMannager.GetComponent<PlayerManagger>();
-        _target = _playerMannagersqript._target;
-        _sqript = _target.GetComponent<Enemy>();
         base.Awake();
         name = "homing";
+    }
+
+    void Start()
+    {
+        if(_target != null)
+        {
+            _target = _playerMannagersqript?._target;
+            enemySqript = _target.GetComponent<Enemy>();
+            base.Start();
+        }
+    }
+
+    void Update()
+    {
+        if(_target == null)
+        {
+            if(_playerMannagersqript._target != null){
+                _target = _playerMannagersqript?._target;
+                enemySqript = _target.GetComponent<Enemy>();
+                SpeedCalculation();
+            }
+        }
+        base.Update();
     }
 
     public override void SpeedCalculation() // ターゲットに向かって追尾させる
     {
         //目標が消える時に先に消える
-        if ((_sqript.breakable & 0b_001) == 0b_001)
+        if ((enemySqript?.breakable & 0b_001) == 0b_001)
             Destroy(this.gameObject);
-
-        Vector3 tar = _target.transform.position;
-        tar -= transform.position;
-        tar = tar.normalized * s;
-        Speed = tar;
+        if(_target != null){
+            Vector3 tar = _target.transform.position;
+            tar -= transform.position;
+            tar = tar.normalized * s;
+            Speed = tar;
+        }
     }
 
     public override void DirCalculation() //おかしくなるから保留

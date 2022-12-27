@@ -60,11 +60,15 @@ public class BasicBullet : MonoBehaviour
         
         startPos = transform.position;
         position = startPos;
-        SpeedCalculation();
+        
         transform.Rotate(new Vector3(0, 0, direction * Mathf.Rad2Deg));
         OnShoot();
     }
 
+    public virtual void Start()
+    {
+        SpeedCalculation();
+    }
 
     // Update is called once per frame
     public virtual void Update()

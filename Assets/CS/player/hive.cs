@@ -6,7 +6,7 @@ using UnityEngine;
 // HP管理と　色の変更(ダメージを受けた時)
 public class hive : MonoBehaviour
 {
-    public int hiveHp = 10;
+    public int hiveHp = 5;
     public int hiveMaxHp;
     public float hiveHpPer => (float)hiveHp / (float)hiveMaxHp;
     private Color32 color = new Color(255, 255, 0, 255);

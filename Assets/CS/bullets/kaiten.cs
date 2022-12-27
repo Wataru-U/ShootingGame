@@ -21,6 +21,10 @@ public class kaiten : BasicBullet
         Dir = Input.GetButton("R2") == false ? -1 : 1;
     }
 
+    void Start(){
+        base.Start();
+    }
+
     // Update is called once per frame
     public override void SpeedCalculation()
     {
